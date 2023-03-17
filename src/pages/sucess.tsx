@@ -1,8 +1,10 @@
+import { KartContext } from "@/Contexts/KartContext";
 import { stripe } from "@/lib/stripe";
 import { ImageContainer, SucessContainer } from "@/styles/pages/sucess";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { useContext } from "react";
 import Stripe from "stripe";
 
 interface SucessProps {
@@ -14,7 +16,13 @@ interface SucessProps {
 }
 
 export default function Sucess({ customerName, product }: SucessProps ) {
-    return (
+
+  const  {oi} = useContext(KartContext)
+
+  console.log(oi, 'uiawdua')
+
+
+return (
 <>        
         <Head>
             <title>Compra efetuada | Ignite Shop</title>

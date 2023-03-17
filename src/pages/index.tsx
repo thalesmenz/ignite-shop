@@ -7,6 +7,9 @@ import { GetStaticProps } from "next";
 import Stripe from "stripe";
 import Link from 'next/link';
 import Head from 'next/head'
+import { Handbag } from "phosphor-react"
+import Kart from "@/components/Kart";
+
 
 interface homeProps {
   products: {
@@ -49,8 +52,13 @@ export default function Home({ products }: homeProps) {
             <img src={product.imageUrl} width={520} height={480} alt="camiseta" />
 
             <footer>
-              <strong>{product.name}</strong>
-              <span>{product.price}</span>
+              <div>
+                <strong>{product.name}</strong>
+                <p>{product.price}</p>
+              </div>
+              <button>
+                <Handbag size={28} />
+              </button>
             </footer>
             </Product>
         </Link>
@@ -59,6 +67,8 @@ export default function Home({ products }: homeProps) {
 
       
     </HomeContainer>
+
+
 </>
   )
 }

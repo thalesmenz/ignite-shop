@@ -1,8 +1,9 @@
 import { globalStyles } from '@/styles/global'
-import { Container, Header } from '@/styles/pages/app';
+import { Container } from '@/styles/pages/app';
 import type { AppProps } from 'next/app'
-import logoImg from "../assets/logo.svg"
-import Image from 'next/image';
+import { KartContext, SpaceKartContext } from '@/Contexts/KartContext';
+import { useContext } from 'react';
+import Header from '@/components/Header';
 
 
 
@@ -10,14 +11,23 @@ globalStyles();
 
 export default function App({ Component, pageProps }: AppProps) {
 
-  return (
-    <Container>
-      <Header>
-        <Image src={logoImg} alt="" />
-      </Header>
+  const  {oi} = useContext(KartContext)
 
-      <Component {...pageProps} />
-    </Container>
+  console.log(oi, 'ihih')
+
+  
+  return (
+  <SpaceKartContext>
+    <Container>
+       
+       <Header />
+
+        <Component {...pageProps} />
+
+          {/* <Kart /> */}
+
+      </Container>
+    </SpaceKartContext>
   )
 
 

@@ -4,8 +4,9 @@ import { useRouter } from "next/router"
 import Stripe from "stripe"
 import { ProductContainer, ImgContainer, ProductDetails } from '../../styles/pages/product'
 import axios from 'axios'
-import { useState } from "react"
+import { useContext, useState } from "react"
 import Head from "next/head"
+import { KartContext } from "@/Contexts/KartContext"
 
 
 interface ProductProps {
@@ -47,13 +48,18 @@ export default function Product({ product }: ProductProps) {
     if (isFallback) {
         return <p>Loading...</p>
     }
+
+
+    const  {oi} = useContext(KartContext)
+
+
+    console.log(oi, 'oi')
     
     return (
 <>
         <Head>
             <title>{product.name} | Ignite Shop</title>
         </Head>
-        
         
         <ProductContainer>
             <ImgContainer>
