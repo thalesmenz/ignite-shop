@@ -16,5 +16,14 @@ export const HeaderContainer = styled('header', {
         borderRadius: 6,
         border: 'none',
         cursor: "pointer",
+
+        span: {
+            position: 'absolute',
+            background: '$green300',
+            color: '$white',
+            padding: '2px 6px',
+            borderRadius: '100%',
+            marginTop: '-15px'
+        }
     }
 })

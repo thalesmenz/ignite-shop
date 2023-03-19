@@ -3,7 +3,141 @@ import { styled } from "..";
 export const KartContainer = styled('div', {
     width: '25%',
     height: '100vh',
-    background: 'Yellow',
+    background: '$gray800',
     position:  "absolute",
-    left: '75%'
+    left: '75%',
+
+    "& > :first-child": {
+        padding: '1rem',
+        display: "flex",
+        justifyContent: "flex-end",
+
+        button:{
+            border: 'none',
+            background: '$gray800',
+            color: '$gray300',
+            cursor: 'pointer',
+        }
+      },
+
+      "& > :last-child": {
+        display:"flex",
+        justifyContent:"space-between",
+
+
+        button: {
+            width: '100%',
+            padding: '1rem',
+            background: '$green300',
+            borderRadius: 8,
+            border: 'none',
+            color: '$white', 
+            cursor: 'pointer',
+            fontSize: 16,
+            marginTop: '1.5rem',
+
+        }
+      }
 })
+
+export const ShoppingContent = styled('div', {
+    padding: '0rem 3rem',
+
+    h1: {
+        fontSize: '16px',
+        marginBottom: '2rem',
+    },
+
+    "& > :last-child": {
+
+        div: {
+            display:'flex',
+            justifyContent:"space-between",
+            marginBottom: '0.5rem',
+
+
+
+            span: {
+                display:'flex',
+                justifyContent:"space-between",
+                color: '$gray300'
+            },
+
+            p: {
+                color: '$white'
+            }
+        }
+
+
+    },
+})
+
+export const Content = styled('div', {
+    height: '22rem',
+    overflow: 'auto',
+    marginBottom: '2rem',
+    width: '15rem',
+
+
+
+    "&::-webkit-scrollbar": {
+        width: '4px',
+    },
+
+    "&::-webkit-scrollbar-thumb": {
+        backgroundColor: '$green300',
+        borderRadius: '4px',
+    },
+
+    "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: '$green500',
+    },
+})
+
+export const ProductInKart = styled('div', {
+    position: 'relative' ,
+    display: 'flex',
+    gap: '1rem',
+    marginBottom: '1rem',
+
+
+    "& > :first-child": {
+        background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+        borderRadius: 6,
+    },
+
+    img: {
+        borderRadius: 6,
+        objectFit: 'cover',
+    },
+
+    "& > :last-child": {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+
+        button: {
+            background: '$gray800',
+            color: "$green500",
+            cursor:'pointer',
+            display: "flex",
+            padding: 0,
+            margin: 0,
+            width: '4rem',
+        }
+
+    },
+
+    p: {
+        fontSize: '12px',
+        color: '$gray300',
+    },
+
+    h3: {
+        color: "$gray100"
+    },
+
+
+})
+
+

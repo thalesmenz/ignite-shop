@@ -9,19 +9,19 @@ import { useContext } from "react";
 
 export default function Header() {
 
-  const  {oi} = useContext(KartContext)
-
-  console.log(oi, 'ihih')
+  const  { setOpenSpaceKart, OpenSpaceKart, AmountOfKarts } = useContext(KartContext)
 
     return (
         <HeaderContainer>
           <Image src={logoImg} alt="" />
           <span>
-            <button>
+            <button onClick={() => {
+              setOpenSpaceKart(!OpenSpaceKart)
+            }}>
               <Handbag size={28} />
-              <span>
-                {oi} 
-              </span>
+              
+                {AmountOfKarts.length !== 0 ? <span>{AmountOfKarts.length}</span> : null}
+              
             </button>
             
           </span>

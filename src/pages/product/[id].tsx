@@ -3,8 +3,7 @@ import { GetStaticProps, GetStaticPaths } from "next"
 import { useRouter } from "next/router"
 import Stripe from "stripe"
 import { ProductContainer, ImgContainer, ProductDetails } from '../../styles/pages/product'
-import axios from 'axios'
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import Head from "next/head"
 import { KartContext } from "@/Contexts/KartContext"
 
@@ -17,30 +16,47 @@ interface ProductProps {
         price: string,
         description: string,
         defaultPriceId: string,
+        quantity: number
     }
 }
 
 export default function Product({ product }: ProductProps) {
 
-    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+    const { AmountOfKarts, setAmountOfKarts, ValueOfKart, setValueOfKart } = useContext(KartContext)
 
-    async function handleBuyProduct() {
-        try {
-            setIsCreatingCheckoutSession(true)
 
-            const response = await axios.post('/api/checkout', {
-                priceId: product.defaultPriceId 
-            })
+    function handleAddToKart() {
+        
+        // Desformar o Intl
 
-            const { checkoutUrl } = response.data
+        const exp = /^\w{0,3}\W?\s?(\d+)[.,](\d+)?,?(\d+)?$/g
+        const replacer = (f, group1, group2, group3) => {
+        return group3 ? `${group1}${group2}.${group3}` : `${group1}.${group2}` }  
+        
+        // adicionar ao carrinho 
 
-            window.location.href = checkoutUrl
+        const Kart = product
+        setAmountOfKarts([...AmountOfKarts, Kart])
 
-        } catch (err) {
-           // Conectar com uma ferramenta de observabilidade ( Datadog / Sentry)
-           setIsCreatingCheckoutSession(false)
-            alert('falha ao redirecionar ao checkout')
-        }
+        // calculo do valor para carrinho
+            
+            const ValueOfSumTheKart = AmountOfKarts.map(item => {
+                const price = item.price;
+                const value = price.replace(exp, replacer)
+                const realPrice = Number(value)
+                return realPrice;
+            });
+            
+            const price = ValueOfSumTheKart.reduce((acumulador, preco) => {
+                return acumulador + preco
+        }, 0)
+
+        console.log(price)
+
+        // setValueOfKart(price)
+
+        //usar useREDUCE
+        
     }
 
     const { isFallback } = useRouter()
@@ -49,12 +65,6 @@ export default function Product({ product }: ProductProps) {
         return <p>Loading...</p>
     }
 
-
-    const  {oi} = useContext(KartContext)
-
-
-    console.log(oi, 'oi')
-    
     return (
 <>
         <Head>
@@ -70,8 +80,8 @@ export default function Product({ product }: ProductProps) {
                 <span>{product.price}</span>
                 <p>{product.description}</p>
 
-                <button onClick={handleBuyProduct} disabled={isCreatingCheckoutSession}>
-                    Comprar agora
+                <button onClick={handleAddToKart}>
+                    Colocar no carrinho
                 </button>
 
             </ProductDetails>
@@ -110,7 +120,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
                   currency: 'BRL'
                 }).format(price.unit_amount as number / 100 ),
                 description: product.description,
-                defaultPriceId: price.id
+                defaultPriceId: price.id,
+                quantity: 1
             }
         },
         revalidate: 60 * 60 * 1 // 1 hora

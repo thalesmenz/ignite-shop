@@ -17,10 +17,6 @@ interface SucessProps {
 
 export default function Sucess({ customerName, product }: SucessProps ) {
 
-  const  {oi} = useContext(KartContext)
-
-  console.log(oi, 'uiawdua')
-
 
 return (
 <>        

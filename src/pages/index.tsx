@@ -8,7 +8,8 @@ import Stripe from "stripe";
 import Link from 'next/link';
 import Head from 'next/head'
 import { Handbag } from "phosphor-react"
-import Kart from "@/components/Kart";
+import { useContext } from "react";
+import { KartContext } from "@/Contexts/KartContext";
 
 
 interface homeProps {
@@ -31,6 +32,7 @@ export default function Home({ products }: homeProps) {
       spacing: 48,
     }
   })
+
 
   // useEffect(() => {
   //   setTimeout(() => {
