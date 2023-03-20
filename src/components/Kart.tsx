@@ -6,7 +6,7 @@ import { useContext, useState } from 'react'
 
 export default function Kart() {
 
-  const  { setOpenSpaceKart, OpenSpaceKart, AmountOfKarts, setAmountOfKarts, ValueOfKart } = useContext(KartContext)
+  const  { setOpenSpaceKart, OpenSpaceKart, AmountOfKarts, setAmountOfKarts, ValueOfKart, setValueOfKart } = useContext(KartContext)
 
 
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
@@ -15,6 +15,7 @@ export default function Kart() {
     try {
         setIsCreatingCheckoutSession(true)
 
+        // Contagem da quantidade de itens
 
         const result = AmountOfKarts.reduce((acc, current) => {
             const foundProduct = acc.find(product => product.defaultPriceId === current.defaultPriceId);
@@ -28,6 +29,8 @@ export default function Kart() {
             return acc;
           }, []);
 
+          // Manado pra API do stripe
+
         const response = await axios.post('/api/checkout', {
             Products: result
         })
@@ -36,6 +39,7 @@ export default function Kart() {
 
         window.location.href = checkoutUrl
 
+    
     } catch (err) {
        // Conectar com uma ferramenta de observabilidade ( Datadog / Sentry)
        setIsCreatingCheckoutSession(false)
@@ -43,13 +47,39 @@ export default function Kart() {
     }
 }
 
-    function handleRemoveItem(indexRemove) {
+    function handleRemoveItem(productPrice, indexRemove) {
+        // Remover da interface o produto
         const array = AmountOfKarts.filter((item, index) => {
             return index !== indexRemove;
         })
-
+        
         setAmountOfKarts(array)
-        console.log(array)
+
+        // Desformatar 
+
+        const exp = /^\w{0,3}\W?\s?(\d+)[.,](\d+)?,?(\d+)?$/g
+        const replacer = (f, group1, group2, group3) => {
+        return group3 ? `${group1}${group2}.${group3}` : `${group1}.${group2}` } 
+
+        const price = Number(ValueOfKart.replace(exp, replacer))
+        const productPriceReduced = Number(productPrice.replace(exp, replacer))
+
+        const newPrice = price - productPriceReduced
+
+        console.log(newPrice)
+
+        // Reformatar
+
+        const priceFormatted = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+          }).format(newPrice as number)
+
+          // Setar novo valor reduzido
+
+
+          setValueOfKart(priceFormatted)
+        
     }
 
     return (
@@ -82,7 +112,7 @@ export default function Kart() {
                                 <div>
                                     <p>{item.name}</p>
                                     <h3>{item.price}</h3>
-                                    <button onClick={() => handleRemoveItem(index)}>Remover</button>
+                                    <button onClick={() => handleRemoveItem(item.price, index)}>Remover</button>
                                 </div>
                             </ProductInKart>
                             </div>

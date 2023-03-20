@@ -9,8 +9,8 @@ interface KartContextType {
     setAmountOfKarts: (data: Kart[]) => void
     OpenSpaceKart: boolean
     setOpenSpaceKart: (data: boolean) => void
-    ValueOfKart: number
-    setValueOfKart: (data: number) => void
+    ValueOfKart: string
+    setValueOfKart: (data: string) => void
 }
 
 interface Kart {
@@ -31,7 +31,7 @@ export function SpaceKartContext({children}: KartProviderProps) {
 
     const [OpenSpaceKart, setOpenSpaceKart] = useState(false)
 
-    const [ValueOfKart, setValueOfKart] = useState(0)
+    const [ValueOfKart, setValueOfKart] = useState("R$ 00,00")
 
 
     return (

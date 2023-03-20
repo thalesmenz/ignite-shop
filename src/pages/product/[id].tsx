@@ -36,11 +36,13 @@ export default function Product({ product }: ProductProps) {
         // adicionar ao carrinho 
 
         const Kart = product
+        const ValueOfKart = [...AmountOfKarts, Kart]
         setAmountOfKarts([...AmountOfKarts, Kart])
 
-        // calculo do valor para carrinho
+
+        // calculo do valor para carrinho e desformatação
             
-            const ValueOfSumTheKart = AmountOfKarts.map(item => {
+            const ValueOfSumTheKart = ValueOfKart.map(item => {
                 const price = item.price;
                 const value = price.replace(exp, replacer)
                 const realPrice = Number(value)
@@ -51,11 +53,17 @@ export default function Product({ product }: ProductProps) {
                 return acumulador + preco
         }, 0)
 
-        console.log(price)
+        // Formnatando novamente
 
-        // setValueOfKart(price)
+        const priceFormatted = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+          }).format(price as number)
 
-        //usar useREDUCE
+         // Setar novo valor aumentado
+
+        setValueOfKart(priceFormatted)
+
         
     }
 
