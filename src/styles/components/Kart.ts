@@ -21,9 +21,6 @@ export const KartContainer = styled('div', {
       },
 
       "& > :last-child": {
-        display:"flex",
-        justifyContent:"space-between",
-
 
         button: {
             width: '100%',
@@ -37,25 +34,30 @@ export const KartContainer = styled('div', {
             marginTop: '1.5rem',
 
         }
+
       }
 })
 
 export const ShoppingContent = styled('div', {
-    padding: '0rem 3rem',
+    display: "flex",
+    justifyContent:"center",
+    alignItems: "center", 
+    flexDirection: "column",
 
-    h1: {
-        fontSize: '16px',
-        marginBottom: '2rem',
+    "& > :first-child": {
+        width: '80%'
     },
 
+
+
     "& > :last-child": {
+
+        width: '80%',
 
         div: {
             display:'flex',
             justifyContent:"space-between",
             marginBottom: '0.5rem',
-
-
 
             span: {
                 display:'flex',
@@ -73,10 +75,9 @@ export const ShoppingContent = styled('div', {
 })
 
 export const Content = styled('div', {
-    height: '22rem',
+    height: '50vh',
     overflow: 'auto',
     marginBottom: '2rem',
-    width: '15rem',
 
 
 
@@ -136,8 +137,12 @@ export const ProductInKart = styled('div', {
     h3: {
         color: "$gray100"
     },
+})
 
-
+export const SacolaDeCompras = styled('h1', {
+        fontSize: '16px',
+        marginBottom: '2rem',
+        paddingLeft: '10%',
 })
 
 

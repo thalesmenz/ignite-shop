@@ -1,6 +1,7 @@
 import { KartContext } from '@/Contexts/KartContext'
-import { Content, KartContainer, ProductInKart, ShoppingContent } from '@/styles/components/Kart'
+import { Content, KartContainer, ProductInKart, SacolaDeCompras, ShoppingContent } from '@/styles/components/Kart'
 import axios from 'axios'
+import Image from 'next/image'
 import { X } from 'phosphor-react'
 import { useContext, useState } from 'react'
 
@@ -49,6 +50,7 @@ export default function Kart() {
 
     function handleRemoveItem(productPrice, indexRemove) {
         // Remover da interface o produto
+        
         const array = AmountOfKarts.filter((item, index) => {
             return index !== indexRemove;
         })
@@ -77,7 +79,6 @@ export default function Kart() {
 
           // Setar novo valor reduzido
 
-
           setValueOfKart(priceFormatted)
         
     }
@@ -98,27 +99,27 @@ export default function Kart() {
             </div>
 
             <div>
-                <ShoppingContent>
 
-                <div>
-                    <h1>Sacola de compras</h1>
-                    <Content>
-                         {AmountOfKarts.map((item, index) => (
-                            <div key={item.id}>
-                            <ProductInKart>
-                                <div>
-                                    <img src={item.imageUrl} width={75} height={75} alt="camiseta" />
+             <SacolaDeCompras>Sacola de compras</SacolaDeCompras>
+
+                <ShoppingContent>
+                    <div>
+                        <Content>
+                            {AmountOfKarts.map((item, index) => (
+                                <div key={index}>
+                                    <ProductInKart>
+                                        <div>
+                                            <Image src={item.imageUrl} width={75} height={75} alt="camiseta" />
+                                        </div>
+                                        <div>
+                                            <p>{item.name}</p>
+                                            <h3>{item.price}</h3>
+                                            <button onClick={() => handleRemoveItem(item.price, index)}>Remover</button>
+                                        </div>
+                                    </ProductInKart>
                                 </div>
-                                <div>
-                                    <p>{item.name}</p>
-                                    <h3>{item.price}</h3>
-                                    <button onClick={() => handleRemoveItem(item.price, index)}>Remover</button>
-                                </div>
-                            </ProductInKart>
-                            </div>
-                        ))}
-                    </Content>
-                       
+                            ))}
+                        </Content>    
                     </div>
 
                     <div> 
@@ -130,9 +131,9 @@ export default function Kart() {
                             <p>valor total</p>
                             <p>{ValueOfKart}</p>
                         </div>
-                        
-                       <button onClick={handleBuyProduct} disabled={isCreatingCheckoutSession}>
-                            Finalizar compra
+                            
+                        <button onClick={handleBuyProduct} disabled={isCreatingCheckoutSession}>
+                                Finalizar compra
                         </button>
                     </div>
                 </ShoppingContent>

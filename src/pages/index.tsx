@@ -10,6 +10,7 @@ import Head from 'next/head'
 import { Handbag } from "phosphor-react"
 import { useContext } from "react";
 import { KartContext } from "@/Contexts/KartContext";
+import Image from "next/image";
 
 
 interface homeProps {
@@ -33,13 +34,6 @@ export default function Home({ products }: homeProps) {
     }
   })
 
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setList([1, 2, 3])
-  //   }, 2000)
-  // }, [])
-
   return (
 <>
     <Head>
@@ -51,7 +45,7 @@ export default function Home({ products }: homeProps) {
         return (
           <Link href={`/product/${product.id}`} key={product.id} prefetch={false}>
             <Product className="keen-slider__slide">
-            <img src={product.imageUrl} width={520} height={480} alt="camiseta" />
+            <Image src={product.imageUrl} width={520} height={480} alt="camiseta" />
 
             <footer>
               <div>

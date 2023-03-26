@@ -6,6 +6,7 @@ import { ProductContainer, ImgContainer, ProductDetails } from '../../styles/pag
 import { useContext } from "react"
 import Head from "next/head"
 import { KartContext } from "@/Contexts/KartContext"
+import Image from "next/image"
 
 
 interface ProductProps {
@@ -81,7 +82,7 @@ export default function Product({ product }: ProductProps) {
         
         <ProductContainer>
             <ImgContainer>
-                <img src={product.imageUrl} width={520} height={480} alt="" />   
+                <Image src={product.imageUrl} width={520} height={480} alt="" />   
             </ImgContainer>
             <ProductDetails>
                 <h1>{product.name}</h1>
